@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Add New Project</title>
+</head>
+<body>
+    <div>
+        <form>
+            <div class='container'>
+                <label> Enter Project </label>
+                <input type="text" id="item" autofocus>
+            </div>
+            <button class='btn waves-effect waves-light' type="submit"> add Project </button>
+        </form>
+    </div>
+    <script>
+        // Sending from renderer process to main JS 
+        const { ipcRenderer } = require('electron'); 
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitForm);
+
+        function submitForm(e){
+            e.preventDefault();
+            const item = document.querySelector('#item').value;
+            ipcRenderer.send('item:add', item);
+        }
+    </script>
+</body>
+</html>
